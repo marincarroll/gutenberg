@@ -72,7 +72,7 @@ function ActionWithModal( { action, item, ActionTrigger } ) {
 					) }` }
 				>
 					<RenderModal
-						item={ item }
+						items={ [ item ] }
 						closeModal={ () => setIsModalOpen( false ) }
 					/>
 				</Modal>
@@ -99,7 +99,7 @@ function ActionsDropdownMenuGroup( { actions, item } ) {
 					<DropdownMenuItemTrigger
 						key={ action.id }
 						action={ action }
-						onClick={ () => action.callback( item ) }
+						onClick={ () => action.callback( [ item ] ) }
 					/>
 				);
 			} ) }
@@ -160,7 +160,7 @@ export default function ItemActions( { item, actions, isCompact } ) {
 						<ButtonTrigger
 							key={ action.id }
 							action={ action }
-							onClick={ () => action.callback( item ) }
+							onClick={ () => action.callback( [ item ] ) }
 						/>
 					);
 				} ) }
