@@ -212,7 +212,8 @@
 	}
 
 	.dataviews-list-view__item {
-		padding: $grid-unit-15 $grid-unit-40;
+		padding: $grid-unit-15 0 $grid-unit-15 $grid-unit-40;
+		width: 100%;
 		cursor: default;
 		&:focus,
 		&:hover {
