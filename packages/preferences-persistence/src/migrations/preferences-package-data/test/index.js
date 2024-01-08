@@ -44,6 +44,10 @@ describe( 'convertPreferencesPackageData', () => {
 		{
 		  "core": {
 		    "fixedToolbar": true,
+		    "hiddenBlockTypes": [
+		      "core/audio",
+		      "core/cover",
+		    ],
 		    "inactivePanels": [],
 		    "openPanels": [
 		      "post-status",
@@ -56,10 +60,6 @@ describe( 'convertPreferencesPackageData', () => {
 		  "core/edit-post": {
 		    "editorMode": "visual",
 		    "fullscreenMode": false,
-		    "hiddenBlockTypes": [
-		      "core/audio",
-		      "core/cover",
-		    ],
 		    "pinnedItems": {
 		      "my-sidebar-plugin/title-sidebar": false,
 		    },
