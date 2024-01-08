@@ -292,7 +292,7 @@ export const showBlockTypes =
 		const existingBlockNames =
 			registry
 				.select( preferencesStore )
-				.get( 'core/edit-post', 'hiddenBlockTypes' ) ?? [];
+				.get( 'core', 'hiddenBlockTypes' ) ?? [];
 
 		const newBlockNames = existingBlockNames.filter(
 			( type ) =>
@@ -303,7 +303,7 @@ export const showBlockTypes =
 
 		registry
 			.dispatch( preferencesStore )
-			.set( 'core/edit-post', 'hiddenBlockTypes', newBlockNames );
+			.set( 'core', 'hiddenBlockTypes', newBlockNames );
 	};
 
 /**
@@ -317,7 +317,7 @@ export const hideBlockTypes =
 		const existingBlockNames =
 			registry
 				.select( preferencesStore )
-				.get( 'core/edit-post', 'hiddenBlockTypes' ) ?? [];
+				.get( 'core', 'hiddenBlockTypes' ) ?? [];
 
 		const mergedBlockNames = new Set( [
 			...existingBlockNames,
@@ -326,9 +326,7 @@ export const hideBlockTypes =
 
 		registry
 			.dispatch( preferencesStore )
-			.set( 'core/edit-post', 'hiddenBlockTypes', [
-				...mergedBlockNames,
-			] );
+			.set( 'core', 'hiddenBlockTypes', [ ...mergedBlockNames ] );
 	};
 
 /**
