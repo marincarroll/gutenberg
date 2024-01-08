@@ -4,7 +4,19 @@
 
 export default function convertEditorSettings( data ) {
 	let newData = data;
-	const settingsToMoveToCore = [ 'allowRightClickOverrides' ];
+	const settingsToMoveToCore = [
+		'allowRightClickOverrides',
+		'distractionFree',
+		'fixedToolbar',
+		'focusMode',
+		'inactivePanels',
+		'keepCaretInsideBlock',
+		'mostUsedBlocks',
+		'openPanels',
+		'showBlockBreadcrumbs',
+		'showIconLabels',
+		'showListViewByDefault',
+	];
 
 	settingsToMoveToCore.forEach( ( setting ) => {
 		if ( data?.[ 'core/edit-post' ]?.[ setting ] !== undefined ) {
@@ -18,7 +30,7 @@ export default function convertEditorSettings( data ) {
 			delete newData[ 'core/edit-post' ][ setting ];
 		}
 
-		if ( data?.[ 'core/edit-post' ]?.[ setting ] !== undefined ) {
+		if ( data?.[ 'core/edit-site' ]?.[ setting ] !== undefined ) {
 			delete newData[ 'core/edit-site' ][ setting ];
 		}
 	} );

@@ -14,7 +14,6 @@ import { SlotFillProvider } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { CommandMenu } from '@wordpress/commands';
-import { useViewportMatch } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -34,22 +33,17 @@ function Editor( {
 	initialEdits,
 	...props
 } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
 	const { currentPost, getPostLinkProps, goBack } = usePostHistory(
 		initialPostId,
 		initialPostType
 	);
 
 	const {
-		hasFixedToolbar,
-		focusMode,
-		isDistractionFree,
 		hasInlineToolbar,
 		post,
 		preferredStyleVariations,
 		hiddenBlockTypes,
 		blockTypes,
-		keepCaretInsideBlock,
 		template,
 	} = useSelect(
 		( select ) => {
@@ -90,10 +84,6 @@ function Editor( {
 				getPostType( currentPost.postType )?.viewable ?? false;
 			const canEditTemplate = canUser( 'create', 'templates' );
 			return {
-				hasFixedToolbar:
-					isFeatureActive( 'fixedToolbar' ) || ! isLargeViewport,
-				focusMode: isFeatureActive( 'focusMode' ),
-				isDistractionFree: isFeatureActive( 'distractionFree' ),
 				hasInlineToolbar: isFeatureActive( 'inlineToolbar' ),
 				preferredStyleVariations: select( preferencesStore ).get(
 					'core/edit-post',
@@ -101,7 +91,6 @@ function Editor( {
 				),
 				hiddenBlockTypes: getHiddenBlockTypes(),
 				blockTypes: getBlockTypes(),
-				keepCaretInsideBlock: isFeatureActive( 'keepCaretInsideBlock' ),
 				template:
 					supportsTemplateMode && isViewable && canEditTemplate
 						? getEditedPostTemplate()
@@ -109,7 +98,7 @@ function Editor( {
 				post: postObject,
 			};
 		},
-		[ currentPost.postType, currentPost.postId, isLargeViewport ]
+		[ currentPost.postType, currentPost.postId ]
 	);
 
 	const { updatePreferredStyleVariations } = useDispatch( editPostStore );
@@ -123,12 +112,8 @@ function Editor( {
 				value: preferredStyleVariations,
 				onChange: updatePreferredStyleVariations,
 			},
-			hasFixedToolbar,
-			focusMode,
-			isDistractionFree,
 			hasInlineToolbar,
 
-			keepCaretInsideBlock,
 			// Keep a reference of the `allowedBlockTypes` from the server to handle use cases
 			// where we need to differentiate if a block is disabled by the user or some plugin.
 			defaultAllowedBlockTypes: settings.allowedBlockTypes,
@@ -152,11 +137,7 @@ function Editor( {
 		return result;
 	}, [
 		settings,
-		hasFixedToolbar,
 		hasInlineToolbar,
-		focusMode,
-		isDistractionFree,
-		keepCaretInsideBlock,
 		hiddenBlockTypes,
 		blockTypes,
 		preferredStyleVariations,
